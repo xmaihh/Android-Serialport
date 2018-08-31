@@ -17,6 +17,9 @@
 package com.ex.serialport;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,10 +39,41 @@ public class ConsoleActivity extends SerialPortActivity {
         mReception = (EditText) findViewById(R.id.EditTextReception);
 
         EditText Emission = (EditText) findViewById(R.id.EditTextEmission);
+        Emission.setText("2333333");
+        Emission.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int i;
+                CharSequence t = s;
+                Log.d("chensy", "onEditorAction: " + s);
+                char[] text = new char[t.length()];
+                for (i = 0; i < t.length(); i++) {
+                    text[i] = t.charAt(i);
+                }
+                try {
+                    mOutputStream.write(new String(text).getBytes());
+                    mOutputStream.write('\n');
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         Emission.setOnEditorActionListener(new OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 int i;
                 CharSequence t = v.getText();
+
+                Log.d("chensy", "onEditorAction: " + v.getText());
                 char[] text = new char[t.length()];
                 for (i = 0; i < t.length(); i++) {
                     text[i] = t.charAt(i);

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/x8">
+
+    <Button
+        android:id="@+id/btn_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择串口设备"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_receiveTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="接收区(长按清空)"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/x12"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_select" />
+
+    <EditText
+        android:id="@+id/et_receive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="left"
+        android:lines="10"
+        android:maxLines="16"
+        android:text="111111111111111"
+        app:layout_constraintTop_toBottomOf="@id/tv_receiveTitle" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toBottomOf="@+id/et_receive" />
+
+    <EditText
+        android:id="@+id/et_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:lines="5"
+        android:maxLines="5"
+        android:text="22222333333"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_send"
+        app:layout_constraintTop_toBottomOf="@id/view_line" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="发送"
+        app:layout_constraintBaseline_toBaselineOf="@id/et_send"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_line" />
+</android.support.constraint.ConstraintLayout>
