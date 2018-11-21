@@ -19,8 +19,13 @@ public abstract class SerialHelper {
     private InputStream mInputStream;
     private ReadThread mReadThread;
     private SendThread mSendThread;
-    private String sPort = "/dev/ttyS3";
+    private String sPort = "/dev/ttyS1";
     private int iBaudRate = 9600;
+    private int stopBits = 1;
+    private int dataBits = 8;
+    private int parity = 0;
+    private int flowCon = 0;
+    private int flags = 0;
     private boolean _isOpen = false;
     private byte[] _bLoopData = {48};
     private int iDelay = 500;
@@ -33,7 +38,7 @@ public abstract class SerialHelper {
 
     public void open()
             throws SecurityException, IOException, InvalidParameterException {
-        this.mSerialPort = new SerialPort(new File(this.sPort), this.iBaudRate, 0);
+        this.mSerialPort = new SerialPort(new File(this.sPort), this.iBaudRate, this.stopBits, this.dataBits, this.parity, this.flowCon, this.flags);
         this.mOutputStream = this.mSerialPort.getOutputStream();
         this.mInputStream = this.mSerialPort.getInputStream();
         this.mReadThread = new ReadThread();
@@ -158,6 +163,54 @@ public abstract class SerialHelper {
     public boolean setBaudRate(String sBaud) {
         int iBaud = Integer.parseInt(sBaud);
         return setBaudRate(iBaud);
+    }
+
+    public int getStopBits() {
+        return this.stopBits;
+    }
+
+    public boolean setStopBits(int stopBits) {
+        if (this._isOpen) {
+            return false;
+        }
+        this.stopBits = stopBits;
+        return true;
+    }
+
+    public int getDataBits() {
+        return this.dataBits;
+    }
+
+    public boolean setDataBits(int dataBits) {
+        if (this._isOpen) {
+            return false;
+        }
+        this.dataBits = dataBits;
+        return true;
+    }
+
+    public int getParity() {
+        return this.parity;
+    }
+
+    public boolean setParity(int parity) {
+        if (this._isOpen) {
+            return false;
+        }
+        this.parity = parity;
+        return true;
+    }
+
+    public int getFlowCon() {
+        return this.flowCon;
+    }
+
+    public boolean setFlowCon(int flowCon) {
+        if (this._isOpen) {
+            return false;
+        }
+        this.flowCon = flowCon;
+        return true;
     }
 
     public String getPort() {

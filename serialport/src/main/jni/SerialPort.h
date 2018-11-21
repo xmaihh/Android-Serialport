@@ -13,7 +13,7 @@ extern "C" {
  * Signature: (Ljava/lang/String;II)Ljava/io/FileDescriptor;
  */                       // 命名格式: Java_包名_类目录_类名_接口
 JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
-  (JNIEnv *, jclass, jstring, jint, jint);
+        (JNIEnv *, jclass, jstring, jint, jint, jint, jint, jint, jint);
 
 /*
  * Class:     android_serialport_api_SerialPort
@@ -21,7 +21,7 @@ JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_android_1serialport_1api_SerialPort_close
-  (JNIEnv *, jobject);
+        (JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

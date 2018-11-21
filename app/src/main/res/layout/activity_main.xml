@@ -1,52 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayout1"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
-    android:orientation="vertical">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/x8"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:layout_marginBottom="@dimen/x8"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/sp_serial"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="发送Text" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="发送Hex" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_serial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:text="串口号:"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_serial"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sp_serial" />
+
+    <Spinner
+        android:id="@+id/sp_serial"
+        android:layout_width="@dimen/x100"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:layout_marginBottom="@dimen/x8"
+        app:layout_constraintBottom_toTopOf="@+id/sp_databits"
+        app:layout_constraintStart_toEndOf="@+id/tv_serial" />
+
+
+    <TextView
+        android:id="@+id/tv_baudrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:text="波特率:"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_serial"
+        app:layout_constraintStart_toEndOf="@+id/sp_serial"
+        app:layout_constraintTop_toTopOf="@+id/sp_serial" />
+
+    <Spinner
+        android:id="@+id/sp_baudrate"
+        android:layout_width="@dimen/x100"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/x8"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_serial"
+        app:layout_constraintStart_toEndOf="@+id/tv_baudrate"
+        app:layout_constraintTop_toTopOf="@+id/sp_serial" />
+
+
+    <TextView
+        android:id="@+id/tv_databits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:text="数据位:"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_databits"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sp_databits" />
+
+    <Spinner
+        android:id="@+id/sp_databits"
+        android:layout_width="@dimen/x100"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:layout_marginBottom="@dimen/x8"
+        app:layout_constraintBottom_toTopOf="@+id/sp_stopbits"
+        app:layout_constraintStart_toEndOf="@+id/tv_databits" />
+
+
+    <TextView
+        android:id="@+id/tv_parity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:text="校验位:"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_databits"
+        app:layout_constraintStart_toEndOf="@+id/sp_databits"
+        app:layout_constraintTop_toTopOf="@+id/sp_databits" />
+
+    <Spinner
+        android:id="@+id/sp_parity"
+        android:layout_width="@dimen/x100"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/x8"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_databits"
+        app:layout_constraintStart_toEndOf="@+id/tv_parity"
+        app:layout_constraintTop_toTopOf="@+id/sp_databits" />
+
+    <TextView
+        android:id="@+id/tv_stopbits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:text="停止位:"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_stopbits"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sp_stopbits" />
+
+    <Spinner
+        android:id="@+id/sp_stopbits"
+        android:layout_width="@dimen/x100"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:layout_marginBottom="@dimen/x8"
+        app:layout_constraintBottom_toTopOf="@+id/btn_open"
+        app:layout_constraintStart_toEndOf="@+id/tv_stopbits" />
+
+
+    <TextView
+        android:id="@+id/tv_flowcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x8"
+        android:gravity="right"
+        android:text="    流控:"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_stopbits"
+        app:layout_constraintStart_toEndOf="@+id/sp_stopbits"
+        app:layout_constraintTop_toTopOf="@+id/sp_stopbits" />
+
+    <Spinner
+        android:id="@+id/sp_flowcon"
+        android:layout_width="@dimen/x100"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/x8"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_stopbits"
+        app:layout_constraintStart_toEndOf="@+id/tv_flowcon"
+        app:layout_constraintTop_toTopOf="@+id/sp_stopbits" />
+
+    <EditText
+        android:id="@+id/ed_input"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/x50"
+        android:layout_marginStart="@dimen/x8"
+        android:layout_marginLeft="@dimen/x8"
+        android:layout_marginTop="@dimen/x8"
+        android:layout_marginEnd="@dimen/x8"
+        android:layout_marginRight="@dimen/x8"
+        android:layout_marginBottom="@dimen/x8"
+        android:maxLines="1"
+        android:text="123456"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_send"
+        app:layout_constraintEnd_toStartOf="@+id/btn_open"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_send" />
 
     <Button
-        android:id="@+id/ButtonSetup"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Setup" />
+        android:id="@+id/btn_open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/x8"
+        android:layout_marginBottom="@dimen/x8"
+        android:text="开启串口"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_send" />
 
     <Button
-        android:id="@+id/ButtonConsole"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Console" />
+        android:id="@+id/btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/x8"
+        android:layout_marginBottom="@dimen/x8"
+        android:text="发送"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/ButtonLoopback"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Loopback" />
 
-    <Button
-        android:id="@+id/Button01010101"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Send 01010101" />
-
-    <Button
-        android:id="@+id/ButtonAbout"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="About" />
-
-    <Button
-        android:id="@+id/ButtonQuit"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Quit" />
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

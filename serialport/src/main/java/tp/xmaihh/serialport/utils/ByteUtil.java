@@ -1,7 +1,6 @@
 package tp.xmaihh.serialport.utils;
 
 public class ByteUtil {
-
     public static int isOdd(int num) {
         return num & 0x1;
     }
@@ -39,10 +38,10 @@ public class ByteUtil {
 
     public static byte[] HexToByteArr(String inHex) {
         int hexlen = inHex.length();
-        byte[] result = new byte[0];
+        byte[] result;
         if (isOdd(hexlen) == 1) {
             hexlen++;
-            byte[] bytes = new byte[hexlen / 2];
+            result = new byte[hexlen / 2];
             inHex = "0" + inHex;
         } else {
             result = new byte[hexlen / 2];

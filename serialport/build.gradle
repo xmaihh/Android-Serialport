@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "2.0"
 
     }
 
@@ -33,3 +33,5 @@ dependencies {
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
 }
+
+apply from: "https://raw.githubusercontent.com/panpf/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
