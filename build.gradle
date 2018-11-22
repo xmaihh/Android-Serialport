@@ -14,7 +14,7 @@ buildscript {
 //        android-maven-gradle-plugin 插件是用来打包 Maven 所需文件的
 //        gradle-bintray-plugin 插件是用来将生成的 Maven 所需文件上传到 Bintray 的
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
 

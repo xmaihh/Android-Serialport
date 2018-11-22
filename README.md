@@ -5,23 +5,23 @@
 <!--<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/compile_env.png" width="80%" height="80%" align="middle" alt="编译环境"/>-->
 
 
-[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter](https://img.shields.io/badge/jcenter-1.0-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
+[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.0](https://img.shields.io/badge/jcenter-2.0-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/:user/:repo/:branch.svg)](https://github.com/xmaihh/Android-Serialport/tree/master)[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)
 
 
-# 使用依赖
-- `Maven`引用
+# 使用依赖[![Download](https://api.bintray.com/packages/xmaihh/maven/serialport/images/download.svg)](https://bintray.com/xmaihh/maven/serialport/_latestVersion)
+1. `Gradle`引用
+```
+implementation 'tp.xmaihh:serialport:2.0'
+```
+2. `Maven`引用
 ```
 <dependency>
   <groupId>tp.xmaihh</groupId>
   <artifactId>serialport</artifactId>
-  <version>1.0</version>
+  <version>2.0</version>
   <type>pom</type>
 </dependency>
-```
-- `Gradle`引用
-```
-implementation 'tp.xmaihh:serialport:1.0'
 ```
 # 属性支持
 | 属性 | 参数|
@@ -45,9 +45,10 @@ serialHelper.setDataBits(int dataBits);  //设置数据位
 serialHelper.setParity(int parity);      //设置校验位
 serialHelper.setFlowCon(int flowcon);    //设置流控
 ```
-## 3.打开串口
 [![](https://img.shields.io/badge/warning-%09%20admonition-yellow.svg)](https://github.com/xmaihh/Android-Serialport)
-属性设置需在执行`open()`函数之前才能设置生效
+
+串口属性设置需在执行`open()`函数之前才能设置生效
+## 3.打开串口
 ```
 serialHelper.open();
 ```
@@ -70,6 +71,13 @@ protected void onDataReceived(final ComBean comBean) {
 ```
 # 完整Demo地址
 <img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.png" width="270" height="480" alt="演示效果"/>
+
 [![apk下载](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 
 PC端调试工具 [友善串口调试工具](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
+
+# FAQ
+* 此library不提供ROOT权限,请自行打开串口`666`权限
+```
+adb shell  chmod 666 /dev/ttyS1
+```
