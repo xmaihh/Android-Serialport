@@ -72,4 +72,4 @@ protected void onDataReceived(final ComBean comBean) {
 [![apk下载](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 <img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.png" width="270" height="480" alt="演示效果"/>
 
-PC端调试工具 [友善串口调试工具](https://github.com/xmaihh/SerialportDemo/blob/master/serial_port_utility_latest.exe)
+PC端调试工具 [友善串口调试工具](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
