@@ -1,68 +1,67 @@
-[https://xmaihh.github.io/2018/08/23/Android串口通信/](https://xmaihh.github.io/2018/08/23/Android串口通信/)
-利用Android studio 3.1上 CMake，将官方串口库移植过来,谷歌官方串口库的设置，仅支持串口名称及波特率
-### 1.打开串口
+# ![](https://github.com/xmaihh/Android-Serialport/raw/master/art/logo.png)Android-Serialport
+移植谷歌官方串口库[android-serialport-api](https://code.google.com/archive/p/android-serialport-api/),仅支持串口名称及波特率，该项目添加支持配置校验位、数据位、停止位、流控配置项
+![编译环境](https://github.com/xmaihh/Android-Serialport/raw/master/art/compile_env.png)
+[![](https://img.shields.io/badge/jcenter-1.0-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
+
+# 使用依赖
+- `Maven`引用
 ```
-	/*
-	@param device 串口文件
-	@param baudrate 比特率
-	@param flags 标记 通常为0
-	*/
-public SerialPort(File device, int baudrate, int flags) throws SecurityException, IOException
-	//ttyS2，比特率9600的串口打开方式如下
-	SerialPort sp = new SerialPort(new File("/dev/ttyS2"), 9600, 0);
+<dependency>
+  <groupId>tp.xmaihh</groupId>
+  <artifactId>serialport</artifactId>
+  <version>1.0</version>
+  <type>pom</type>
+</dependency>
 ```
-### 2.关闭串口
+- `Gradle`引用
 ```
-	public void closeSerialPort() {
-		if (mSerialPort != null) {
-			mSerialPort.close();
-			mSerialPort = null;
-		}
-	}
+implementation 'tp.xmaihh:serialport:1.0'
 ```
-### 3.发送数据
+# 属性支持
+| 属性 | 参数|
+| --- | --- |
+|波特率 | [BAUDRATE](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/android_serialport_api/SerialPort.java) |
+|数据位 |5,6,7,8 默认值8|
+|校验位 |无奇偶校验(NONE) 奇校验(ODD) 偶校验(EVEN) 默认无奇偶校验|
+| 停止位| 1,2 默认值1 |
+|流控 |不使用流控(NONE) 硬件流控(RTS/CTS) 软件流控(XON/XOFF) 默认不使用流控|
+# 代码功能
+## 1.列出串口列表
 ```
-	mOutputStream = mSerialPort.getOutputStream();
-    ...
-	private class SendingThread extends Thread {
-		@Override
-		public void run() {
-			while (!isInterrupted()) {
-				try {
-					if (mOutputStream != null) {
-						mOutputStream.write(mBuffer);
-					} else {
-						return;
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-					return;
-				}
-			}
-		}
-	}
+serialPortFinder.getAllDevicesPath();
 ```
-### 4.接收数据
+## 2.串口属性设置
 ```
-	mOutputStream = mSerialPort.getOutputStream();
-    ...
-	private class SendingThread extends Thread {
-		@Override
-		public void run() {
-			while (!isInterrupted()) {
-				try {
-					if (mOutputStream != null) {
-						mOutputStream.write(mBuffer);
-					} else {
-						return;
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-					return;
-				}
-			}
-		}
-	}
+serialHelper.setPort(String sPort);      //设置串口
+serialHelper.setBaudRate(int iBaud);     //设置波特率
+serialHelper.setStopBits(int stopBits);  //设置停止位
+serialHelper.setDataBits(int dataBits);  //设置数据位
+serialHelper.setParity(int parity);      //设置校验位
+serialHelper.setFlowCon(int flowcon);    //设置流控
 ```
-[apk下载](https://github.com/xmaihh/SerialportDemo/blob/master/SerialportDemo.apk)
+## 3.打开串口
+![](https://img.shields.io/badge/warning-%09%20admonition-yellow.svg)属性设置需在执行`open()`函数之前才能设置生效
+```
+serialHelper.open();
+```
+## 4.关闭串口
+```
+serialHelper.close();
+```
+## 5.发送
+```
+serialHelper.send(byte[] bOutArray); // 发送byte[]
+serialHelper.sendHex(String sHex);  // 发送Hex
+serialHelper.sendTxt(String sTxt);  // 发送ASCII
+```
+## 6.接收
+```
+ @Override
+protected void onDataReceived(final ComBean comBean) {
+       Toast.makeText(getBaseContext(), new String(comBean.bRec, "UTF-8"), Toast.LENGTH_SHORT).show();
+   }
+```
+# 完整Demo地址
+[![apk下载](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
+![演示效果](https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.png)
 PC端调试工具[友善串口调试工具](https://github.com/xmaihh/SerialportDemo/blob/master/serial_port_utility_latest.exe)
