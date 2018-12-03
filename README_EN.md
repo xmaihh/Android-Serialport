@@ -1,6 +1,6 @@
 <!--[![](https://github.com/xmaihh/Android-Serialport/raw/master/art/logo.png)](https://code.google.com/archive/p/android-serialport-api/)-->
 # Android-Serialport
-移植谷歌官方串口库[android-serialport-api](https://code.google.com/archive/p/android-serialport-api/),仅支持串口名称及波特率，该项目添加支持校验位、数据位、停止位、流控配置项
+Porting Google's official serial port library[android-serialport-api](https://code.google.com/archive/p/android-serialport-api/),only supports serial port name and baud rate. This item adds support check digit, data bit, stop bit, flow control configuration item.
 
 <!--<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/compile_env.png" width="80%" height="80%" align="middle" alt="编译环境"/>-->
 
@@ -8,15 +8,15 @@
 [![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.0](https://img.shields.io/badge/jcenter-2.0-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/:user/:repo/:branch.svg)](https://github.com/xmaihh/Android-Serialport/tree/master)[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)
 
-# 文档
-- [English](https://github.com/xmaihh/Android-Serialport/blob/master/README_EN.md)
+# Document
+- [中文](https://github.com/xmaihh/Android-Serialport/blob/master/README.md)
 
-# 使用依赖[![Download](https://api.bintray.com/packages/xmaihh/maven/serialport/images/download.svg)](https://bintray.com/xmaihh/maven/serialport/_latestVersion)
-1. `Gradle`引用
+# Usage[![Download](https://api.bintray.com/packages/xmaihh/maven/serialport/images/download.svg)](https://bintray.com/xmaihh/maven/serialport/_latestVersion)
+1. `Gradle`dependency
 ```
 implementation 'tp.xmaihh:serialport:2.0'
 ```
-2. `Maven`引用
+2. `Maven`dependency
 ```
 <dependency>
   <groupId>tp.xmaihh</groupId>
@@ -25,61 +25,61 @@ implementation 'tp.xmaihh:serialport:2.0'
   <type>pom</type>
 </dependency>
 ```
-# 属性支持
-| 属性 | 参数|
+# Attribute
+| Attributes | parameter|
 | --- |  :---: |
-|波特率 | [BAUDRATE](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/android_serialport_api/SerialPort.java) |
-|数据位 |5,6,7,8 ;默认值8|
-|校验位 |无奇偶校验(NONE), 奇校验(ODD), 偶校验(EVEN); 默认无奇偶校验|
-| 停止位| 1,2 ;默认值1 |
-|流控 |不使用流控(NONE), 硬件流控(RTS/CTS), 软件流控(XON/XOFF); 默认不使用流控|
-# 代码功能
-## 1.列出串口列表
+|Baud rate | [BAUDRATE](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/android_serialport_api/SerialPort.java) |
+|Data bit |5,6,7,8 ; default value 8|
+|Check Digit |No parity (NONE), odd parity (ODD), even parity (EVEN); default no parity|
+| Stop bit | 1,2 ; default value 1 |
+|Flow Control |No flow control (NONE), hardware flow control (RTS/CTS), software flow control (XON/XOFF); flow control is not used by default|
+# Function
+## 1.List the serial port
 ```
 serialPortFinder.getAllDevicesPath();
 ```
-## 2.串口属性设置
+## 2.Serial port property settings
 ```
-serialHelper.setPort(String sPort);      //设置串口
-serialHelper.setBaudRate(int iBaud);     //设置波特率
-serialHelper.setStopBits(int stopBits);  //设置停止位
-serialHelper.setDataBits(int dataBits);  //设置数据位
-serialHelper.setParity(int parity);      //设置校验位
-serialHelper.setFlowCon(int flowcon);    //设置流控
+serialHelper.setPort(String sPort);      //set the serial port
+serialHelper.setBaudRate(int iBaud);     //set the baud rate
+serialHelper.setStopBits(int stopBits);  //set the stop bit
+serialHelper.setDataBits(int dataBits);  //set the data bit
+serialHelper.setParity(int parity);      //set the check bit
+serialHelper.setFlowCon(int flowcon);    //set the flow control
 ```
 [![](https://img.shields.io/badge/warning-%09%20admonition-yellow.svg)](https://github.com/xmaihh/Android-Serialport)
 
-串口属性设置需在执行`open()`函数之前才能设置生效
-## 3.打开串口
+Serial port property settings must be set before the function 'open()' is executed.
+## 3. Open the serial port
 ```
 serialHelper.open();
 ```
-## 4.关闭串口
+## 4.Close the serial port
 ```
 serialHelper.close();
 ```
-## 5.发送
+## 5.Send
 ```
-serialHelper.send(byte[] bOutArray); // 发送byte[]
-serialHelper.sendHex(String sHex);  // 发送Hex
-serialHelper.sendTxt(String sTxt);  // 发送ASCII
+serialHelper.send(byte[] bOutArray); // send byte[]
+serialHelper.sendHex(String sHex);  // send Hex
+serialHelper.sendTxt(String sTxt);  // send ASCII
 ```
-## 6.接收
+## 6.Receiving
 ```
  @Override
 protected void onDataReceived(final ComBean comBean) {
        Toast.makeText(getBaseContext(), new String(comBean.bRec, "UTF-8"), Toast.LENGTH_SHORT).show();
    }
 ```
-# 完整Demo地址
+# Demo APK
 <img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.png" width="270" height="480" alt="演示效果"/>
 
-[![apk下载](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
+[![apk Download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 
-PC端调试工具 [友善串口调试工具](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
+PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
 
 # FAQ
-* 此library不提供ROOT权限,请自行打开串口`666`权限
+* This library does not provide ROOT permissions, please open the serial port '666' permissions yourself.
 ```
 adb shell  chmod 666 /dev/ttyS1
 ```
