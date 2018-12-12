@@ -83,3 +83,9 @@ PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmai
 ```
 adb shell  chmod 666 /dev/ttyS1
 ```
+
+## Contribute
+
+Please do contribute! Issues and pull requests are welcome.
+
+Thank you for your help improving software one changelog at a time!

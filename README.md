@@ -3,9 +3,9 @@
 移植谷歌官方串口库[android-serialport-api](https://code.google.com/archive/p/android-serialport-api/),仅支持串口名称及波特率，该项目添加支持校验位、数据位、停止位、流控配置项
 
 <!--<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/compile_env.png" width="80%" height="80%" align="middle" alt="编译环境"/>-->
+＃<img src ="https://github.com/xmaihh/Android-Serialport/raw/master/art/logo.svg" height = 150 alt ="Android-Serialport"/>
 
-
-[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.0](https://img.shields.io/badge/jcenter-2.0-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
+[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.1](https://img.shields.io/badge/jcenter-2.1-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/:user/:repo/:branch.svg)](https://github.com/xmaihh/Android-Serialport/tree/master)[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)
 
 # 文档
@@ -14,14 +14,14 @@
 # 使用依赖[![Download](https://api.bintray.com/packages/xmaihh/maven/serialport/images/download.svg)](https://bintray.com/xmaihh/maven/serialport/_latestVersion)
 1. `Gradle`引用
 ```
-implementation 'tp.xmaihh:serialport:2.0'
+implementation 'tp.xmaihh:serialport:2.1'
 ```
 2. `Maven`引用
 ```
 <dependency>
   <groupId>tp.xmaihh</groupId>
   <artifactId>serialport</artifactId>
-  <version>2.0</version>
+  <version>2.1</version>
   <type>pom</type>
 </dependency>
 ```
@@ -71,12 +71,47 @@ protected void onDataReceived(final ComBean comBean) {
        Toast.makeText(getBaseContext(), new String(comBean.bRec, "UTF-8"), Toast.LENGTH_SHORT).show();
    }
 ```
+## 7.粘包处理
+支持粘包处理,原因见[issue](https://github.com/xmaihh/Android-Serialport/issues/1),提供的粘包处理有
+1. [不处理](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/tp/xmaihh/serialport/stick/BaseStickPackageHelper.java)(默认)
+2. [首尾特殊字符处理](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/tp/xmaihh/serialport/stick/SpecifiedStickPackageHelper.java)
+3. [固定长度处理](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/tp/xmaihh/serialport/stick/StaticLenStickPackageHelper.java)
+4. [动态长度处理](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/tp/xmaihh/serialport/stick/VariableLenStickPackageHelper.java)
+支持自定义粘包处理，第一步实现[AbsStickPackageHelper](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/tp/xmaihh/serialport/stick/AbsStickPackageHelper.java)接口
+```
+/**
+ * 接受消息，粘包处理的helper，通过inputstream，返回最终的数据，需手动处理粘包，返回的byte[]是我们预期的完整数据
+ * note:这个方法会反复调用，直到解析到一条完整的数据。该方法是同步的，尽量不要做耗时操作，否则会阻塞读取数据
+ */
+public interface AbsStickPackageHelper {
+    byte[] execute(InputStream is);
+}
+```
+设置粘包处理
+```
+serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
+```
+* 其实数据粘包可参考socket通讯的粘包处理,例如此处粘包处理方法出自于[XAndroidSocket](https://github.com/Blankeer/XAndroidSocket)
 # 完整Demo地址
 <img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.png" width="270" height="480" alt="演示效果"/>
 
 [![apk下载](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 
 PC端调试工具 [友善串口调试工具](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
+
+# 更新日志
+## [2.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1)
+### 新增
+- 添加支持设置接收数据粘包处理，支持设置自定义粘包处理
+
+## [2.0](https://github.com/xmaihh/Android-Serialport/tree/v2.0)
+### 新增
+- 添加支持设置校验位、数据位、停止位、流控配置项
+
+## [1.0](https://github.com/xmaihh/Android-Serialport/tree/v1.0)
+### 新增
+- 基础功能,串口设置串口号、波特率,发送、接收数据
+
 
 # FAQ
 * 此library不提供ROOT权限,请自行打开串口`666`权限

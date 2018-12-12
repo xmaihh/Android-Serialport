@@ -1,6 +1,5 @@
 package tp.xmaihh.serialport;
 
-import android.os.SystemClock;
 import android.util.Log;
 
 import java.io.File;
@@ -11,6 +10,8 @@ import java.security.InvalidParameterException;
 
 import android_serialport_api.SerialPort;
 import tp.xmaihh.serialport.bean.ComBean;
+import tp.xmaihh.serialport.stick.AbsStickPackageHelper;
+import tp.xmaihh.serialport.stick.BaseStickPackageHelper;
 import tp.xmaihh.serialport.utils.ByteUtil;
 
 public abstract class SerialHelper {
@@ -90,18 +91,25 @@ public abstract class SerialHelper {
                     if (SerialHelper.this.mInputStream == null) {
                         return;
                     }
-                    int available = SerialHelper.this.mInputStream.available();
 
-                    if (available > 0) {
-                        byte[] buffer = new byte['?'];
-                        int size = SerialHelper.this.mInputStream.read(buffer);
-                        if (size > 0) {
-                            ComBean ComRecData = new ComBean(SerialHelper.this.sPort, buffer, size);
-                            SerialHelper.this.onDataReceived(ComRecData);
-                        }
-                    } else {
-                        SystemClock.sleep(50);
+                    byte[] buffer = getStickPackageHelper().execute(SerialHelper.this.mInputStream);
+                    if (buffer != null && buffer.length > 0) {
+                        ComBean ComRecData = new ComBean(SerialHelper.this.sPort, buffer, buffer.length);
+                        SerialHelper.this.onDataReceived(ComRecData);
                     }
+//                    int available = SerialHelper.this.mInputStream.available();
+//
+//                    if (available > 0) {
+//                        byte[] buffer = new byte['?'];
+//                        int size = SerialHelper.this.mInputStream.read(buffer);
+//                        if (size > 0) {
+//                            ComBean ComRecData = new ComBean(SerialHelper.this.sPort, buffer, size);
+//                            SerialHelper.this.onDataReceived(ComRecData);
+//                        }
+//                    } else {
+//                        SystemClock.sleep(50);
+//                    }
+
                 } catch (Throwable e) {
                     Log.e("error", e.getMessage());
                     return;
@@ -266,4 +274,15 @@ public abstract class SerialHelper {
     }
 
     protected abstract void onDataReceived(ComBean paramComBean);
+
+    private AbsStickPackageHelper mStickPackageHelper = new BaseStickPackageHelper();  // 默认不处理粘包，直接读取返回
+
+    public AbsStickPackageHelper getStickPackageHelper() {
+        return mStickPackageHelper;
+    }
+
+    public void setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper) {
+        this.mStickPackageHelper = mStickPackageHelper;
+    }
+
 }
