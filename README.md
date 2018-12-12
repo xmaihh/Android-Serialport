@@ -3,7 +3,7 @@
 移植谷歌官方串口库[android-serialport-api](https://code.google.com/archive/p/android-serialport-api/),仅支持串口名称及波特率，该项目添加支持校验位、数据位、停止位、流控配置项
 
 <!--<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/compile_env.png" width="80%" height="80%" align="middle" alt="编译环境"/>-->
-＃<img src ="https://github.com/xmaihh/Android-Serialport/raw/master/art/logo.svg" height = 150 alt ="Android-Serialport"/>
+<img src ="https://github.com/xmaihh/Android-Serialport/blob/master/art/logo.svg" height = 150 alt ="Android-Serialport"/>
 
 [![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.1](https://img.shields.io/badge/jcenter-2.1-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/:user/:repo/:branch.svg)](https://github.com/xmaihh/Android-Serialport/tree/master)[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)

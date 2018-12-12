@@ -3,9 +3,9 @@
 Porting Google's official serial port library[android-serialport-api](https://code.google.com/archive/p/android-serialport-api/),only supports serial port name and baud rate. This item adds support check digit, data bit, stop bit, flow control configuration item.
 
 <!--<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/compile_env.png" width="80%" height="80%" align="middle" alt="编译环境"/>-->
+<img src ="https://github.com/xmaihh/Android-Serialport/blob/master/art/logo.svg" height = 150 alt ="Android-Serialport"/>
 
-
-[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.0](https://img.shields.io/badge/jcenter-2.0-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
+[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.1](https://img.shields.io/badge/jcenter-2.1-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/:user/:repo/:branch.svg)](https://github.com/xmaihh/Android-Serialport/tree/master)[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)
 
 # Document
@@ -14,14 +14,14 @@ Porting Google's official serial port library[android-serialport-api](https://co
 # Usage[![Download](https://api.bintray.com/packages/xmaihh/maven/serialport/images/download.svg)](https://bintray.com/xmaihh/maven/serialport/_latestVersion)
 1. `Gradle`dependency
 ```
-implementation 'tp.xmaihh:serialport:2.0'
+implementation 'tp.xmaihh:serialport:2.1'
 ```
 2. `Maven`dependency
 ```
 <dependency>
   <groupId>tp.xmaihh</groupId>
   <artifactId>serialport</artifactId>
-  <version>2.0</version>
+  <version>2.1</version>
   <type>pom</type>
 </dependency>
 ```
@@ -71,12 +71,52 @@ protected void onDataReceived(final ComBean comBean) {
        Toast.makeText(getBaseContext(), new String(comBean.bRec, "UTF-8"), Toast.LENGTH_SHORT).show();
    }
 ```
+## 7.Sticky processing
+Support sticky package processing, the reason is seen in the [Issue](https://github.com/xmaihh/Android-Serialport/issues/1) , the provided sticky package processing
+- Not processed (default)
+- First and last special character processing
+- Fixed length processing
+- Dynamic length processing
+
+Supports custom sticky packet processing.
+
+## Step 1
+The first step is to implement the [AbsStickPackageHelper](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/tp/xmaihh/serialport/stick/AbsStickPackageHelper.java) interface.
+```
+/**
+ * Accept the message, the helper of the sticky packet processing, return the final data through inputstream, need to manually process the sticky packet, and the returned byte[] is the complete data we expected.
+ * Note: This method will be called repeatedly until it resolves to a complete piece of data. This method is synchronous, try not to do time-consuming operations, otherwise it will block reading data.
+ */
+public interface AbsStickPackageHelper {
+    byte[] execute(InputStream is);
+}
+```
+## Step 2
+Set sticky package processing
+```
+serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
+```
+
 # Demo APK
 <img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.png" width="270" height="480" alt="演示效果"/>
 
 [![apk Download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 
 PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
+
+# Changelog
+## [2.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1)
+### Added
+- Add support settings to receive data sticky packet processing, support for setting custom sticky packet processing
+
+## [2.0](https://github.com/xmaihh/Android-Serialport/tree/v2.0)
+### Added
+- Add support to set check digits, data bits, stop bits, flow control configuration items
+
+## [1.0](https://github.com/xmaihh/Android-Serialport/tree/v1.0)
+### Added
+- Basic function, serial port set serial port number, baud rate, send and receive data
+
 
 # FAQ
 * This library does not provide ROOT permissions, please open the serial port '666' permissions yourself.
