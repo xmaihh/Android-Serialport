@@ -1,8 +1,7 @@
 package com.ex.serialport.adapter;
 
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.ex.serialport.R;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class LogListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
      * 清空
      */
     public void clean() {
-        this.mData.clear();
+        this.getData().clear();
         notifyDataSetChanged();
     }
 

@@ -17,7 +17,7 @@ public class BaseStickPackageHelper implements AbsStickPackageHelper {
         try {
             int available = is.available();
             if (available > 0) {
-                byte[] buffer = new byte['?'];
+                byte[] buffer = new byte[available];
                 int size = is.read(buffer);
                 if (size > 0) {
                     return buffer;
