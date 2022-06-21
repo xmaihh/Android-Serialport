@@ -5,25 +5,27 @@ Porting Google's official serial port library[android-serialport-api](https://co
 <!--<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/compile_env.png" width="80%" height="80%" align="middle" alt="编译环境"/>-->
 <img src ="https://github.com/xmaihh/Android-Serialport/blob/master/art/logo.svg" height = 150 alt ="Android-Serialport"/>
 
-[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.1](https://img.shields.io/badge/jcenter-2.1-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
+[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.1](https://img.shields.io/badge/jcenter-2.1-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)![Maven Central](https://img.shields.io/maven-central/v/io.github.xmaihh/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/:user/:repo/:branch.svg)](https://github.com/xmaihh/Android-Serialport/tree/master)[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)
 
 # Document
 - [中文](https://github.com/xmaihh/Android-Serialport/blob/master/README.md)
 
-# Usage[![Download](https://api.bintray.com/packages/xmaihh/maven/serialport/images/download.svg)](https://bintray.com/xmaihh/maven/serialport/_latestVersion)
-1. `Gradle`dependency
+# Usage
+1. Open your root  `build.gradle` and add `mavenCentral()`: 
 ```
-implementation 'tp.xmaihh:serialport:2.1'
+allprojects {
+    repositories {
+        ...
+        mavenCentral()
+    }
+}
 ```
-2. `Maven`dependency
+2. To add a dependency to your project, specify a dependency configuration such as implementation in the dependencies block of your module's build.gradle file.
 ```
-<dependency>
-  <groupId>tp.xmaihh</groupId>
-  <artifactId>serialport</artifactId>
-  <version>2.1</version>
-  <type>pom</type>
-</dependency>
+dependencies {
+    implementation 'io.github.xmaihh:serialport:2.1'
+}
 ```
 # Attribute
 | Attributes | parameter|
