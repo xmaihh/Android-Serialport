@@ -74,7 +74,8 @@ protected void onDataReceived(final ComBean comBean) {
    }
 ```
 ## 7.Sticky processing
-Support sticky package processing, the reason is seen in the [Issue](https://github.com/xmaihh/Android-Serialport/issues/1) , the provided sticky package processing
+Support sticky package processing, the reason is seen in the [issues#1](https://github.
+com/xmaihh/Android-Serialport/issues/1) , the provided sticky package processing
 - Not processed (default)
 - First and last special character processing
 - Fixed length processing
@@ -107,7 +108,7 @@ serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
 PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
 
 # Changelog
-## [2.1.1](https://github.com/xmaihh/Android-Serialport)
+## [2.1.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1.1)
 ### Fixed
 - Fix bug.[issues#17](https://github.com/xmaihh/Android-Serialport/issues/17)
 

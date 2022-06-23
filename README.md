@@ -74,7 +74,7 @@ protected void onDataReceived(final ComBean comBean) {
    }
 ```
 ## 7.粘包处理
-支持粘包处理,原因见[issue](https://github.com/xmaihh/Android-Serialport/issues/1),提供的粘包处理有
+支持粘包处理,原因见[issues#1](https://github.com/xmaihh/Android-Serialport/issues/1),提供的粘包处理有
 1. [不处理](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/tp/xmaihh/serialport/stick/BaseStickPackageHelper.java)(默认)
 2. [首尾特殊字符处理](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/tp/xmaihh/serialport/stick/SpecifiedStickPackageHelper.java)
 3. [固定长度处理](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/tp/xmaihh/serialport/stick/StaticLenStickPackageHelper.java)
@@ -102,7 +102,7 @@ serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
 PC端调试工具 [友善串口调试工具](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
 
 # 更新日志
-## [2.1.1](https://github.com/xmaihh/Android-Serialport)
+## [2.1.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1.1)
 ### 修复
 - 修复引用依赖问题见[issues#17](https://github.com/xmaihh/Android-Serialport/issues/17)
 
