@@ -25,5 +25,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
 //    implementation project(path: ':serialport')
-    implementation 'io.github.xmaihh:serialport:2.1'
+    implementation 'io.github.xmaihh:serialport:2.1.1'
 }

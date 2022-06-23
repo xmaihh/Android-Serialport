@@ -24,7 +24,7 @@ allprojects {
 2. To add a dependency to your project, specify a dependency configuration such as implementation in the dependencies block of your module's build.gradle file.
 ```
 dependencies {
-    implementation 'io.github.xmaihh:serialport:2.1'
+    implementation 'io.github.xmaihh:serialport:2.1.1'
 }
 ```
 # Attribute
@@ -107,6 +107,10 @@ serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
 PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
 
 # Changelog
+## [2.1.1](https://github.com/xmaihh/Android-Serialport)
+### Fixed
+- Fix bug.[issues#17](https://github.com/xmaihh/Android-Serialport/issues/17)
+
 ## [2.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1)
 ### Added
 - Add support settings to receive data sticky packet processing, support for setting custom sticky packet processing

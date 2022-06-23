@@ -24,7 +24,7 @@ allprojects {
 2. 在项目Module下的`build.gradle`文件中添加：
 ```
 dependencies {
-    implementation 'io.github.xmaihh:serialport:2.1'
+    implementation 'io.github.xmaihh:serialport:2.1.1'
 }
 ```
 # 属性支持
@@ -102,6 +102,10 @@ serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
 PC端调试工具 [友善串口调试工具](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
 
 # 更新日志
+## [2.1.1](https://github.com/xmaihh/Android-Serialport)
+### 修复
+- 修复引用依赖问题见[issues#17](https://github.com/xmaihh/Android-Serialport/issues/17)
+
 ## [2.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1)
 ### 新增
 - 添加支持设置接收数据粘包处理，支持设置自定义粘包处理
