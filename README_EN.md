@@ -1,6 +1,6 @@
 <!--[![](https://github.com/xmaihh/Android-Serialport/raw/master/art/logo.png)](https://code.google.com/archive/p/android-serialport-api/)-->
 # Android-Serialport
-Porting Google's official serial port library[android-serialport-api](https://code.google.com/archive/p/android-serialport-api/),only supports serial port name and baud rate. This item adds support check digit, data bit, stop bit, flow control configuration item.
+Porting Google's official serial port library [android-serialport-api](https://code.google.com/archive/p/android-serialport-api/),only supports serial port name and baud rate. This item adds support check digit, data bit, stop bit, flow control configuration item.
 
 <!--<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/compile_env.png" width="80%" height="80%" align="middle" alt="编译环境"/>-->
 <img src ="https://github.com/xmaihh/Android-Serialport/blob/master/art/logo.svg" height = 150 alt ="Android-Serialport"/>
@@ -74,8 +74,7 @@ protected void onDataReceived(final ComBean comBean) {
    }
 ```
 ## 7.Sticky processing
-Support sticky package processing, the reason is seen in the [issues#1](https://github.
-com/xmaihh/Android-Serialport/issues/1) , the provided sticky package processing
+Support sticky package processing, the reason is seen in the [issues#1](https://github.com/xmaihh/Android-Serialport/issues/1) , the provided sticky package processing
 - Not processed (default)
 - First and last special character processing
 - Fixed length processing
