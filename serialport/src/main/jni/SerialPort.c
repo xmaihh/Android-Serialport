@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-#include <termios.h>
+//#include <termios.h>
+#include <asm/termios.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -31,75 +32,6 @@ static const char *TAG = "serial_port";
 #define LOGD(fmt, args...) __android_log_print(ANDROID_LOG_DEBUG, TAG, fmt, ##args)
 #define LOGE(fmt, args...) __android_log_print(ANDROID_LOG_ERROR, TAG, fmt, ##args)
 
-static speed_t getBaudrate(jint baudrate) {
-    switch (baudrate) {
-        case 0:
-            return B0;
-        case 50:
-            return B50;
-        case 75:
-            return B75;
-        case 110:
-            return B110;
-        case 134:
-            return B134;
-        case 150:
-            return B150;
-        case 200:
-            return B200;
-        case 300:
-            return B300;
-        case 600:
-            return B600;
-        case 1200:
-            return B1200;
-        case 1800:
-            return B1800;
-        case 2400:
-            return B2400;
-        case 4800:
-            return B4800;
-        case 9600:
-            return B9600;
-        case 19200:
-            return B19200;
-        case 38400:
-            return B38400;
-        case 57600:
-            return B57600;
-        case 115200:
-            return B115200;
-        case 230400:
-            return B230400;
-        case 460800:
-            return B460800;
-        case 500000:
-            return B500000;
-        case 576000:
-            return B576000;
-        case 921600:
-            return B921600;
-        case 1000000:
-            return B1000000;
-        case 1152000:
-            return B1152000;
-        case 1500000:
-            return B1500000;
-        case 2000000:
-            return B2000000;
-        case 2500000:
-            return B2500000;
-        case 3000000:
-            return B3000000;
-        case 3500000:
-            return B3500000;
-        case 4000000:
-            return B4000000;
-        default:
-            return -1;
-    }
-}
-
 /*
  * Class:     android_serialport_SerialPort
  * Method:    open
@@ -114,7 +46,7 @@ JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
 
     /* Check arguments */
     {
-        speed = getBaudrate(baudrate);
+        speed = baudrate;
         if (speed == -1) {
             /* TODO: throw an exception */
             LOGE("Invalid baudrate");
@@ -140,32 +72,29 @@ JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
 
     /* Configure device */
     {
-        struct termios cfg;
-        LOGD("Configuring serial port");
-        if (tcgetattr(fd, &cfg)) {
-            LOGE("tcgetattr() failed");
-            close(fd);
-            /* TODO: throw an exception */
-            return NULL;
-        }
+        struct termios2 cfg;
 
-        cfmakeraw(&cfg);
-        cfsetispeed(&cfg, speed);
-        cfsetospeed(&cfg, speed);
+        ioctl (fd, TCGETS2, &cfg);
+        // Set baudrate
+        cfg.c_cflag &= ~CBAUD;
+        cfg.c_cflag |= BOTHER;
+
+        cfg.c_ispeed = baudrate;
+        cfg.c_ospeed = baudrate;
 
         cfg.c_cflag &= ~CSIZE;
         switch (dataBits) {
             case 5:
-                cfg.c_cflag |= CS5;    //使用5位数据位
+                cfg.c_cflag |= CS5;    //5 Data Bits
                 break;
             case 6:
-                cfg.c_cflag |= CS6;    //使用6位数据位
+                cfg.c_cflag |= CS6;    //6 Data Bits
                 break;
             case 7:
-                cfg.c_cflag |= CS7;    //使用7位数据位
+                cfg.c_cflag |= CS7;    //7 Data Bits
                 break;
             case 8:
-                cfg.c_cflag |= CS8;    //使用8位数据位
+                cfg.c_cflag |= CS8;    //8 Data Bits
                 break;
             default:
                 cfg.c_cflag |= CS8;
@@ -174,16 +103,36 @@ JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
 
         switch (parity) {
             case 0:
-                cfg.c_cflag &= ~PARENB;    //无奇偶校验
+                cfg.c_cflag &= ~PARENB;    //PARITY OFF
                 break;
             case 1:
-                cfg.c_cflag |= (PARODD | PARENB);   //奇校验
+                cfg.c_cflag |= (PARODD | PARENB);   //PARITY ODD
+                cfg.c_iflag &= ~IGNPAR;
+                cfg.c_iflag |= PARMRK;
+                cfg.c_iflag |= INPCK;
                 break;
             case 2:
-                cfg.c_iflag &= ~(IGNPAR | PARMRK); // 偶校验
+                cfg.c_iflag &= ~(IGNPAR | PARMRK); //PARITY EVEN
                 cfg.c_iflag |= INPCK;
                 cfg.c_cflag |= PARENB;
                 cfg.c_cflag &= ~PARODD;
+                break;
+            case 3:
+                //  PARITY SPACE
+                cfg.c_iflag &= ~IGNPAR;             //  Make sure wrong parity is not ignored
+                cfg.c_iflag |= PARMRK;              //  Marks parity error, parity error
+                //  is given as three char sequence
+                cfg.c_iflag |= INPCK;               //  Enable input parity checking
+                cfg.c_cflag |= PARENB | CMSPAR;     //  Enable parity and set space parity
+                cfg.c_cflag &= ~PARODD;             //
+                break;
+            case 4:
+                //  PARITY MARK
+                cfg.c_iflag &= ~IGNPAR;             //  Make sure wrong parity is not ignored
+                cfg.c_iflag |= PARMRK;              //  Marks parity error, parity error
+                //  is given as three char sequence
+                cfg.c_iflag |= INPCK;               //  Enable input parity checking
+                cfg.c_cflag |= PARENB | CMSPAR | PARODD;
                 break;
             default:
                 cfg.c_cflag &= ~PARENB;
@@ -192,25 +141,26 @@ JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
 
         switch (stopBits) {
             case 1:
-                cfg.c_cflag &= ~CSTOPB;    //1位停止位
+                cfg.c_cflag &= ~CSTOPB;    //1 Stop Bit
                 break;
             case 2:
-                cfg.c_cflag |= CSTOPB;    //2位停止位
+                cfg.c_cflag |= CSTOPB;    //2 Stop Bits
                 break;
             default:
+                cfg.c_cflag &= ~CSTOPB;
                 break;
         }
 
         // hardware flow control
         switch (flowCon) {
             case 0:
-                cfg.c_cflag &= ~CRTSCTS;    //不使用流控
+                cfg.c_cflag &= ~CRTSCTS;    //No Flow Control
                 break;
             case 1:
-                cfg.c_cflag |= CRTSCTS;    //硬件流控
+                cfg.c_cflag |= CRTSCTS;    //Hardware Flow Control
                 break;
             case 2:
-                cfg.c_cflag |= IXON | IXOFF | IXANY;    //软件流控
+                cfg.c_cflag |= IXON | IXOFF | IXANY;    //Software Flow Control
                 break;
             default:
                 cfg.c_cflag &= ~CRTSCTS;
@@ -218,8 +168,8 @@ JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
         }
 
 
-        if (tcsetattr(fd, TCSANOW, &cfg)) {
-            LOGE("tcsetattr() failed");
+        if (ioctl(fd, TCSETS2, &cfg)) {
+            LOGE("tcsets2() failed");
             close(fd);
             /* TODO: throw an exception */
             return NULL;

@@ -17,7 +17,7 @@ public class ComBean implements Parcelable {
         for (int i = 0; i < size; i++) {
             this.bRec[i] = buffer[i];
         }
-        SimpleDateFormat sDateFormat = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("hh:mm:ss.SSS");
         this.sRecTime = sDateFormat.format(new Date());
     }
 

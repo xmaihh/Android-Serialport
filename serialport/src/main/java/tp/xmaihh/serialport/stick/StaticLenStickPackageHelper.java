@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 定长的粘包处理
- * 例：协议规定每次包的长度为 16
+ * Fixed-length adhesive package treatment
+ * Example: The protocol stipulates that the length of each packet is 16
  */
 public class StaticLenStickPackageHelper implements AbsStickPackageHelper {
     private int stackLen = 16;

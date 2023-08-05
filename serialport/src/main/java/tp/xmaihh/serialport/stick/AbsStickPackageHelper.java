@@ -3,8 +3,11 @@ package tp.xmaihh.serialport.stick;
 import java.io.InputStream;
 
 /**
- * 接受消息，粘包处理的helper，通过inputstream，返回最终的数据，需手动处理粘包，返回的byte[]是我们预期的完整数据
- * note:这个方法会反复调用，直到解析到一条完整的数据。该方法是同步的，尽量不要做耗时操作，否则会阻塞读取数据
+ * Accept the message, the helper of the sticky packet processing,
+ * return the final data through the inputstream,
+ * manually process the sticky packet, and the returned byte[] is the complete data we expect
+ * Note: This method will be called repeatedly until a complete piece of data is parsed.
+ * This method is synchronous, try not to do time-consuming operations, otherwise it will block reading data
  */
 public interface AbsStickPackageHelper {
     byte[] execute(InputStream is);

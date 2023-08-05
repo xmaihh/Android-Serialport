@@ -31,7 +31,7 @@ public class SerialPort {
     private static final String TAG = "SerialPort";
 
     /**
-     * 串口波特率定义
+     * Commonly used serial port baudrate
      */
     public enum BAUDRATE {
         B0(0),
@@ -79,16 +79,10 @@ public class SerialPort {
     }
 
     /**
-     * 串口停止位定义
+     * Serial port stop bit
      */
     public enum STOPB {
-        /**
-         * 1位停止位
-         */
         B1(1),
-        /**
-         * 2位停止位
-         */
         B2(2);
 
         int stopBit;
@@ -104,24 +98,12 @@ public class SerialPort {
     }
 
     /**
-     * 串口数据位定义
+     * Serial port data bits
      */
     public enum DATAB {
-        /**
-         * 5位数据位
-         */
         CS5(5),
-        /**
-         * 6位数据位
-         */
         CS6(6),
-        /**
-         * 7位数据位
-         */
         CS7(7),
-        /**
-         * 8位数据位
-         */
         CS8(8);
 
         int dataBit;
@@ -136,21 +118,14 @@ public class SerialPort {
     }
 
     /**
-     * 串口校验位定义
+     * Serial port parity
      */
     public enum PARITY {
-        /**
-         * 无奇偶校验
-         */
         NONE(0),
-        /**
-         * 奇校验
-         */
         ODD(1),
-        /**
-         * 偶校验
-         */
-        EVEN(2);
+        EVEN(2),
+        SPACE(3),
+        MARK(4);
 
         int parity;
 
@@ -164,20 +139,11 @@ public class SerialPort {
     }
 
     /**
-     * 串口流控定义
+     * Serial port flow type
      */
     public enum FLOWCON {
-        /**
-         * 不使用流控
-         */
         NONE(0),
-        /**
-         * 硬件流控
-         */
         HARD(1),
-        /**
-         * 软件流控
-         */
         SOFT(2);
 
         int flowCon;
@@ -195,17 +161,16 @@ public class SerialPort {
     /*
      * Do not remove or rename the field mFd: it is used by native method close();
      */
-    private FileDescriptor mFd;
-    private FileInputStream mFileInputStream;
-    private FileOutputStream mFileOutputStream;
+    private final FileDescriptor mFd;
+    private final FileInputStream mFileInputStream;
+    private final FileOutputStream mFileOutputStream;
 
     public SerialPort(File device, int baudrate, int stopBits, int dataBits, int parity, int flowCon, int flags) throws SecurityException, IOException {
 
-        /* Check access permission */  // 检查是否获取了指定串口的读写权限
+        /* Check access permission */
         if (!device.canRead() || !device.canWrite()) {
             try {
                 /* Missing read/write permission, trying to chmod the file */
-                // 如果没有获取指定串口的读写权限，则通过挂在到linux的方式修改串口的权限为可读写
                 Process su;
                 su = Runtime.getRuntime().exec("/system/bin/su");
                 String cmd = "chmod 666 " + device.getAbsolutePath() + "\n"
@@ -239,27 +204,24 @@ public class SerialPort {
         return mFileOutputStream;
     }
 
-    // JNI
-    // JNI：调用java本地接口，实现串口的打开和关闭
-
     /**
-     * 串口有五个重要的参数：串口设备名，波特率，检验位，数据位，停止位
-     * 其中检验位一般默认位NONE,数据位一般默认为8，停止位默认为1
+     * The serial port has 5 parameters: serial device name, baud rate, check bit, data bit, stop bit
+     * Among them, the check bit is generally defaulted to the NONE, the data bit is generally defaulted to 8, and the stop bit is defaulted to 1
      *
-     * @param path     串口设备的据对路径
-     * @param baudrate {@link BAUDRATE}波特率
-     * @param stopBits {@link STOPB}停止位
-     * @param dataBits {@link DATAB}数据位
-     * @param parity   {@link PARITY}校验位
-     * @param flowCon  {@link FLOWCON}流控
-     * @param flags    O_RDWR  读写方式打开 | O_NOCTTY  不允许进程管理串口 | O_NDELAY   非阻塞
+     * @param path     to the data pair of the serial device
+     * @param baudrate {@link BAUDRATE} baudrate
+     * @param stopBits {@link STOPB} stop bit
+     * @param dataBits {@link DATAB} data bits
+     * @param parity   {@link PARITY} check digit
+     * @param flowCon  {@link FLOWCON} flow control
+     * @param flags    O_RDWR read and write mode to open | O_NOCTTY Do not allow process management serial port | O_NDELAY Non-blocking
      * @return
      */
-    private native static FileDescriptor open(String path, int baudrate, int stopBits, int dataBits, int parity, int flowCon, int flags); //打开串口
+    private native static FileDescriptor open(String path, int baudrate, int stopBits, int dataBits, int parity, int flowCon, int flags);
 
-    public native void close(); //关闭串口
+    public native void close();
 
     static {
-        System.loadLibrary("serialport"); // 载入底层C文件 so库链接文件
+        System.loadLibrary("serialport");
     }
 }
