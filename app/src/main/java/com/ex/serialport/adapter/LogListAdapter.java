@@ -6,11 +6,6 @@ import com.ex.serialport.R;
 
 import java.util.List;
 
-
-/**
- * Author
- * Created Time 2017/12/14.
- */
 public class LogListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     public LogListAdapter(List list) {
@@ -24,9 +19,6 @@ public class LogListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     }
 
-    /**
-     * 清空
-     */
     public void clean() {
         this.getData().clear();
         notifyDataSetChanged();

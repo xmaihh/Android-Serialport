@@ -9,7 +9,11 @@ Porting Google's official serial port library [android-serialport-api](https://c
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/:user/:repo/:branch.svg)](https://github.com/xmaihh/Android-Serialport/tree/master)[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)
 
 # Document
-- [中文](https://github.com/xmaihh/Android-Serialport/blob/master/README.md)
+
+<p >
+    <a href="https://github.com/xmaihh/Android-Serialport/blob/master/README.md">中文</a>
+    | <a href="https://github.com/xmaihh/Android-Serialport/blob/master/README_EN.md">English</a>
+</p>
 
 # Usage
 1. Open your root  `build.gradle` and add `mavenCentral()`: 
@@ -28,13 +32,13 @@ dependencies {
 }
 ```
 # Attribute
-| Attributes | parameter|
-| --- |  :---: |
-|Baud rate | [BAUDRATE](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/android_serialport_api/SerialPort.java) |
-|Data bit |5,6,7,8 ; default value 8|
-|Check Digit |No parity (NONE), odd parity (ODD), even parity (EVEN); default no parity|
-| Stop bit | 1,2 ; default value 1 |
-|Flow Control |No flow control (NONE), hardware flow control (RTS/CTS), software flow control (XON/XOFF); flow control is not used by default|
+| Attributes   |                                                              parameter                                                               |
+|--------------|:------------------------------------------------------------------------------------------------------------------------------------:|
+| Baud rate    | [BAUDRATE](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/android_serialport_api/SerialPort.java) |
+| Data bit     |                                                      5,6,7,8 ; default value 8                                                       |
+| Parity bit   |              No parity (NONE), odd parity (ODD), even parity (EVEN), 0 parity(SPACE), 1 parity(MARK); default no parity              |
+| Stop bit     |                                                        1,2 ; default value 1                                                         |
+| Flow Control |    No flow control (NONE), hardware flow control (RTS/CTS), software flow control (XON/XOFF); flow control is not used by default    |
 # Function
 ## 1.List the serial port
 ```
@@ -42,12 +46,12 @@ serialPortFinder.getAllDevicesPath();
 ```
 ## 2.Serial port property settings
 ```
-serialHelper.setPort(String sPort);      //set the serial port
-serialHelper.setBaudRate(int iBaud);     //set the baud rate
-serialHelper.setStopBits(int stopBits);  //set the stop bit
-serialHelper.setDataBits(int dataBits);  //set the data bit
-serialHelper.setParity(int parity);      //set the check bit
-serialHelper.setFlowCon(int flowcon);    //set the flow control
+serialHelper.setPort(String sPort);      //set serial port
+serialHelper.setBaudRate(int iBaud);     //set baud rate
+serialHelper.setStopBits(int stopBits);  //set stop bit
+serialHelper.setDataBits(int dataBits);  //set data bit
+serialHelper.setParity(int parity);      //set parity
+serialHelper.setFlowCon(int flowcon);    //set flow control
 ```
 [![](https://img.shields.io/badge/warning-%09%20admonition-yellow.svg)](https://github.com/xmaihh/Android-Serialport)
 
@@ -100,16 +104,22 @@ serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
 ```
 
 # Demo APK
-<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.png" width="270" height="480" alt="演示效果"/>
+<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.jpg" width="270" height="480" alt="演示效果"/>
 
 [![apk Download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 
 PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
 
 # Changelog
+## [2.1.2](https://github.com/xmaihh/Android-Serialport/tree/v2.1.2)
+### Added
+- Add support for setting parity: 0 parity(SPACE), 1 parity(MARK)
+- Added support for setting custom baud rate 见[issues#26](https://github.com/xmaihh/Android-Serialport/issues/26)
+
 ## [2.1.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1.1)
 ### Fixed
 - Fix bug.[issues#17](https://github.com/xmaihh/Android-Serialport/issues/17)
+- Migrate to MavenCentral
 
 ## [2.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1)
 ### Added
@@ -117,7 +127,7 @@ PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmai
 
 ## [2.0](https://github.com/xmaihh/Android-Serialport/tree/v2.0)
 ### Added
-- Add support to set check digits, data bits, stop bits, flow control configuration items
+- Add support for setting parity, data bits, stop bits, flow control configuration items
 
 ## [1.0](https://github.com/xmaihh/Android-Serialport/tree/v1.0)
 ### Added

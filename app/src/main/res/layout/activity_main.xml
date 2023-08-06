@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/x8"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,35 +27,45 @@
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
-        android:layout_marginBottom="@dimen/x8"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/sp_serial"
+        app:layout_constraintBottom_toTopOf="@+id/tv_custom_baudrate"
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
             android:id="@+id/radioButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
-            android:text="发送Text" />
+            android:text="@string/send_setting_send_text" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
             android:checked="true"
-            android:text="发送Hex" />
+            android:text="@string/send_setting_send_hex" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_custom_baudrate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/title_custom_buardate"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@id/tv_serial"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/tv_serial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
-        android:text="串口号:"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/title_serial_port"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="@+id/sp_serial"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,11 +73,10 @@
 
     <Spinner
         android:id="@+id/sp_serial"
-        android:layout_width="@dimen/x100"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
-        android:layout_marginBottom="@dimen/x8"
         app:layout_constraintBottom_toTopOf="@+id/sp_databits"
+        app:layout_constraintEnd_toStartOf="@id/gline"
         app:layout_constraintStart_toEndOf="@+id/tv_serial" />
 
 
@@ -67,19 +84,18 @@
         android:id="@+id/tv_baudrate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
-        android:text="波特率:"
+        android:text="@string/title_baudrate"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="@+id/sp_serial"
-        app:layout_constraintStart_toEndOf="@+id/sp_serial"
+        app:layout_constraintStart_toEndOf="@+id/gline"
         app:layout_constraintTop_toTopOf="@+id/sp_serial" />
 
     <Spinner
         android:id="@+id/sp_baudrate"
-        android:layout_width="@dimen/x100"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/x8"
         app:layout_constraintBottom_toBottomOf="@+id/sp_serial"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_baudrate"
         app:layout_constraintTop_toTopOf="@+id/sp_serial" />
 
@@ -88,8 +104,8 @@
         android:id="@+id/tv_databits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
-        android:text="数据位:"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/title_data_bits"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="@+id/sp_databits"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,11 +113,10 @@
 
     <Spinner
         android:id="@+id/sp_databits"
-        android:layout_width="@dimen/x100"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
-        android:layout_marginBottom="@dimen/x8"
         app:layout_constraintBottom_toTopOf="@+id/sp_stopbits"
+        app:layout_constraintEnd_toStartOf="@id/gline"
         app:layout_constraintStart_toEndOf="@+id/tv_databits" />
 
 
@@ -109,19 +124,18 @@
         android:id="@+id/tv_parity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
-        android:text="校验位:"
+        android:text="@string/title_parity"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="@+id/sp_databits"
-        app:layout_constraintStart_toEndOf="@+id/sp_databits"
+        app:layout_constraintStart_toEndOf="@+id/gline"
         app:layout_constraintTop_toTopOf="@+id/sp_databits" />
 
     <Spinner
         android:id="@+id/sp_parity"
-        android:layout_width="@dimen/x100"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/x8"
         app:layout_constraintBottom_toBottomOf="@+id/sp_databits"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_parity"
         app:layout_constraintTop_toTopOf="@+id/sp_databits" />
 
@@ -129,8 +143,8 @@
         android:id="@+id/tv_stopbits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
-        android:text="停止位:"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/title_stop_bits"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="@+id/sp_stopbits"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,11 +152,10 @@
 
     <Spinner
         android:id="@+id/sp_stopbits"
-        android:layout_width="@dimen/x100"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
-        android:layout_marginBottom="@dimen/x8"
         app:layout_constraintBottom_toTopOf="@+id/btn_open"
+        app:layout_constraintEnd_toStartOf="@id/gline"
         app:layout_constraintStart_toEndOf="@+id/tv_stopbits" />
 
 
@@ -150,38 +163,31 @@
         android:id="@+id/tv_flowcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/x8"
         android:gravity="right"
-        android:text="    流控:"
+        android:text="@string/title_flow_type"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="@+id/sp_stopbits"
-        app:layout_constraintStart_toEndOf="@+id/sp_stopbits"
+        app:layout_constraintStart_toEndOf="@+id/gline"
         app:layout_constraintTop_toTopOf="@+id/sp_stopbits" />
 
     <Spinner
         android:id="@+id/sp_flowcon"
-        android:layout_width="@dimen/x100"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/x8"
         app:layout_constraintBottom_toBottomOf="@+id/sp_stopbits"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_flowcon"
         app:layout_constraintTop_toTopOf="@+id/sp_stopbits" />
 
     <EditText
         android:id="@+id/ed_input"
         android:layout_width="0dp"
-        android:layout_height="@dimen/x50"
-        android:layout_marginStart="@dimen/x8"
-        android:layout_marginLeft="@dimen/x8"
-        android:layout_marginTop="@dimen/x8"
-        android:layout_marginEnd="@dimen/x8"
-        android:layout_marginRight="@dimen/x8"
-        android:layout_marginBottom="@dimen/x8"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:maxLines="1"
         android:text="123456"
-        android:textSize="@dimen/sp_14"
         app:layout_constraintBottom_toBottomOf="@+id/btn_send"
-        app:layout_constraintEnd_toStartOf="@+id/btn_open"
+        app:layout_constraintEnd_toStartOf="@+id/gline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_send" />
 
@@ -189,20 +195,18 @@
         android:id="@+id/btn_open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/x8"
-        android:layout_marginBottom="@dimen/x8"
-        android:text="开启串口"
+        android:text="@string/title_open"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_send" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_send"
+        app:layout_constraintStart_toEndOf="@id/gline" />
 
     <Button
         android:id="@+id/btn_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/x8"
-        android:layout_marginBottom="@dimen/x8"
-        android:text="发送"
+        android:text="@string/title_send"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_open" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="send_setting_send_text">发送Text</string>
+    <string name="send_setting_send_hex">发送Hex</string>
+    <string name="title_custom_buardate">*自定义波特率：%s</string>
+    <string name="title_serial_port">串口号:</string>
+    <string name="title_baudrate">波特率:</string>
+    <string name="title_data_bits">数据位:</string>
+    <string name="title_parity">校验位:</string>
+    <string name="title_stop_bits">停止位:</string>
+    <string name="title_flow_type">流控:</string>
+    <string name="title_open">开启</string>
+    <string name="title_send">发送</string>
+    <string name="title_clear">清空</string>
+    <string name="tips_serial_port_not_open">串口没打开</string>
+    <string name="tips_please_enter_a_data">先填数据吧</string>
+    <string name="tips_formatting_hex_error">格式不正确，不是16进制字符串</string>
+    <string name="tips_please_enter_custom_baudrate">输入自定义波特率</string>
+    <string name="tips_cannot_be_opened">打开失败。msg：%s</string>
+</resources>

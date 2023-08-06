@@ -9,7 +9,11 @@
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/:user/:repo/:branch.svg)](https://github.com/xmaihh/Android-Serialport/tree/master)[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)
 
 # 文档
-- [English](https://github.com/xmaihh/Android-Serialport/blob/master/README_EN.md)
+
+<p >
+    <a href="https://github.com/xmaihh/Android-Serialport/blob/master/README.md">中文</a>
+    | <a href="https://github.com/xmaihh/Android-Serialport/blob/master/README_EN.md">English</a>
+</p>
 
 # 使用依赖
 1. 在项目根目录的`build.gradle`文件中添加：
@@ -28,13 +32,13 @@ dependencies {
 }
 ```
 # 属性支持
-| 属性 | 参数|
-| --- |  :---: |
+| 属性 |                                                                  参数                                                                  |
+| --- |:------------------------------------------------------------------------------------------------------------------------------------:|
 |波特率 | [BAUDRATE](https://github.com/xmaihh/Android-Serialport/blob/master/serialport/src/main/java/android_serialport_api/SerialPort.java) |
-|数据位 |5,6,7,8 ;默认值8|
-|校验位 |无奇偶校验(NONE), 奇校验(ODD), 偶校验(EVEN); 默认无奇偶校验|
-| 停止位| 1,2 ;默认值1 |
-|流控 |不使用流控(NONE), 硬件流控(RTS/CTS), 软件流控(XON/XOFF); 默认不使用流控|
+|数据位 |                                                            5,6,7,8 ;默认值8                                                             |
+|校验位 |                                   无奇偶校验(NONE), 奇校验(ODD), 偶校验(EVEN), 0校验(SPACE), 1校验(MARK); 默认无奇偶校验                                   |
+| 停止位|                                                              1,2 ;默认值1                                                               |
+|流控 |                                         不使用流控(NONE), 硬件流控(RTS/CTS), 软件流控(XON/XOFF); 默认不使用流控                                          |
 # 代码功能
 ## 1.列出串口列表
 ```
@@ -95,16 +99,22 @@ serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
 ```
 * 其实数据粘包可参考socket通讯的粘包处理,例如此处粘包处理方法出自于[XAndroidSocket](https://github.com/Blankeer/XAndroidSocket)
 # 完整Demo地址
-<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.png" width="270" height="480" alt="演示效果"/>
+<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.jpg" width="270" height="480" alt="演示效果"/>
 
 [![apk下载](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
 
 PC端调试工具 [友善串口调试工具](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
 
 # 更新日志
+## [2.1.2](https://github.com/xmaihh/Android-Serialport/tree/v2.1.2)
+### 新增
+- 添加支持设置校验位:0校验(SPACE)、1校验(MARK)
+- 添加支持设置自定义波特率 见[issues#26](https://github.com/xmaihh/Android-Serialport/issues/26)
+
 ## [2.1.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1.1)
 ### 修复
 - 修复引用依赖问题见[issues#17](https://github.com/xmaihh/Android-Serialport/issues/17)
+- 迁移到到MavenCentral
 
 ## [2.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1)
 ### 新增

@@ -1,6 +1,9 @@
 package com.ex.serialport;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,9 +14,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +28,9 @@ import com.ex.serialport.adapter.LogListAdapter;
 import com.ex.serialport.adapter.SpAdapter;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android_serialport_api.SerialPortFinder;
 import tp.xmaihh.serialport.SerialHelper;
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spParity;
     private Spinner spStopb;
     private Spinner spFlowcon;
+    private TextView customBaudrate;
 
     @Override
     protected void onDestroy() {
@@ -59,21 +67,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recy = (RecyclerView) findViewById(R.id.recyclerView);
-        spSerial = (Spinner) findViewById(R.id.sp_serial);
-        edInput = (EditText) findViewById(R.id.ed_input);
-        btSend = (Button) findViewById(R.id.btn_send);
-        spBote = (Spinner) findViewById(R.id.sp_baudrate);
-        btOpen = (Button) findViewById(R.id.btn_open);
+        recy = findViewById(R.id.recyclerView);
+        spSerial = findViewById(R.id.sp_serial);
+        edInput = findViewById(R.id.ed_input);
+        btSend = findViewById(R.id.btn_send);
+        spBote = findViewById(R.id.sp_baudrate);
+        btOpen = findViewById(R.id.btn_open);
 
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        radioButton1 = (RadioButton) findViewById(R.id.radioButton1);
-        radioButton2 = (RadioButton) findViewById(R.id.radioButton2);
+        radioGroup = findViewById(R.id.radioGroup);
+        radioButton1 = findViewById(R.id.radioButton1);
+        radioButton2 = findViewById(R.id.radioButton2);
 
-        spDatab = (Spinner) findViewById(R.id.sp_databits);
-        spParity = (Spinner) findViewById(R.id.sp_parity);
-        spStopb = (Spinner) findViewById(R.id.sp_stopbits);
-        spFlowcon = (Spinner) findViewById(R.id.sp_flowcon);
+        spDatab = findViewById(R.id.sp_databits);
+        spParity = findViewById(R.id.sp_parity);
+        spStopb = findViewById(R.id.sp_stopbits);
+        spFlowcon = findViewById(R.id.sp_flowcon);
+        customBaudrate = findViewById(R.id.tv_custom_baudrate);
 
         logListAdapter = new LogListAdapter(null);
         recy.setLayoutManager(new LinearLayoutManager(this));
@@ -88,18 +97,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (radioGroup.getCheckedRadioButtonId() == R.id.radioButton1) {
-                            try {
-                                Toast.makeText(getBaseContext(), new String(comBean.bRec, "UTF-8"), Toast.LENGTH_SHORT).show();
-                                logListAdapter.addData(comBean.sRecTime + ":   " + new String(comBean.bRec, "UTF-8"));
-                                if (logListAdapter.getData() != null && logListAdapter.getData().size() > 0) {
-                                    recy.smoothScrollToPosition(logListAdapter.getData().size());
-                                }
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
+                            logListAdapter.addData(comBean.sRecTime + " Rx:<==" + new String(comBean.bRec, StandardCharsets.UTF_8));
+                            if (logListAdapter.getData() != null && logListAdapter.getData().size() > 0) {
+                                recy.smoothScrollToPosition(logListAdapter.getData().size());
                             }
                         } else {
-                            Toast.makeText(getBaseContext(), ByteUtil.ByteArrToHex(comBean.bRec), Toast.LENGTH_SHORT).show();
-                            logListAdapter.addData(comBean.sRecTime + ":   " + ByteUtil.ByteArrToHex(comBean.bRec));
+                            logListAdapter.addData(comBean.sRecTime + " Rx:<==" + ByteUtil.ByteArrToHex(comBean.bRec));
                             if (logListAdapter.getData() != null && logListAdapter.getData().size() > 0) {
                                 recy.smoothScrollToPosition(logListAdapter.getData().size());
                             }
@@ -110,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
         };
 
         final String[] ports = serialPortFinder.getAllDevicesPath();
-        final String[] botes = new String[]{"0", "50", "75", "110", "134", "150", "200", "300", "600", "1200", "1800", "2400", "4800", "9600", "19200", "38400", "57600", "115200", "230400", "460800", "500000", "576000", "921600", "1000000", "1152000", "1500000", "2000000", "2500000", "3000000", "3500000", "4000000"};
+        final String[] botes = new String[]{"0", "50", "75", "110", "134", "150", "200", "300", "600", "1200", "1800", "2400", "4800", "9600", "19200", "38400", "57600", "115200", "230400", "460800", "500000", "576000", "921600", "1000000", "1152000", "1500000", "2000000", "2500000", "3000000", "3500000", "4000000", "CUSTOM"};
         final String[] databits = new String[]{"8", "7", "6", "5"};
-        final String[] paritys = new String[]{"NONE", "ODD", "EVEN"};
+        final String[] paritys = new String[]{"NONE", "ODD", "EVEN", "SPACE", "MARK"};
         final String[] stopbits = new String[]{"1", "2"};
         final String[] flowcons = new String[]{"NONE", "RTS/CTS", "XON/XOFF"};
 
@@ -142,6 +145,11 @@ public class MainActivity extends AppCompatActivity {
         spBote.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == botes.length - 1) {
+                    showInputDialog();
+                    return;
+                }
+                findViewById(R.id.tv_custom_baudrate).setVisibility(View.GONE);
                 serialHelper.close();
                 serialHelper.setBaudRate(botes[position]);
                 btOpen.setEnabled(true);
@@ -233,10 +241,10 @@ public class MainActivity extends AppCompatActivity {
                     serialHelper.open();
                     btOpen.setEnabled(false);
                 } catch (IOException e) {
-                    Toast.makeText(MainActivity.this, "msg: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.tips_cannot_be_opened, e.getMessage()), Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
-                } catch (SecurityException ex) {
-                    Toast.makeText(MainActivity.this, "msg: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (SecurityException se) {
+                    Toast.makeText(MainActivity.this, getString(R.string.tips_cannot_be_opened, se.getMessage()), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -244,30 +252,94 @@ public class MainActivity extends AppCompatActivity {
         btSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SimpleDateFormat sDateFormat = new SimpleDateFormat("hh:mm:ss.SSS");
                 if (radioGroup.getCheckedRadioButtonId() == R.id.radioButton1) {
                     if (edInput.getText().toString().length() > 0) {
                         if (serialHelper.isOpen()) {
                             serialHelper.sendTxt(edInput.getText().toString());
+                            logListAdapter.addData(sDateFormat.format(new Date()) + " Tx:==>" + edInput.getText().toString());
+                            if (logListAdapter.getData() != null && logListAdapter.getData().size() > 0) {
+                                recy.smoothScrollToPosition(logListAdapter.getData().size());
+                            }
                         } else {
-                            Toast.makeText(getBaseContext(), "串口没打开", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), R.string.tips_serial_port_not_open, Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getBaseContext(), "先填数据吧", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), R.string.tips_please_enter_a_data, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     if (edInput.getText().toString().length() > 0) {
                         if (serialHelper.isOpen()) {
+                            try {
+                                Long.parseLong(edInput.getText().toString(), 16);
+                            } catch (NumberFormatException e) {
+                                Toast.makeText(getBaseContext(), R.string.tips_formatting_hex_error, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             serialHelper.sendHex(edInput.getText().toString());
+                            logListAdapter.addData(sDateFormat.format(new Date()) + " Tx:==>" + edInput.getText().toString());
+                            if (logListAdapter.getData() != null && logListAdapter.getData().size() > 0) {
+                                recy.smoothScrollToPosition(logListAdapter.getData().size());
+                            }
                         } else {
-                            Toast.makeText(getBaseContext(), "串口没打开", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), R.string.tips_serial_port_not_open, Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getBaseContext(), "先填数据吧", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), R.string.tips_please_enter_a_data, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
     }
+
+    private void showInputDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.tips_please_enter_custom_baudrate);
+
+        final EditText inputField = new EditText(this);
+        InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isDigit(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        };
+        inputField.setFilters(new InputFilter[]{filter});
+        builder.setView(inputField);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String userInput = inputField.getText().toString().trim();
+                try {
+                    int value = Integer.parseInt(userInput);
+                    if (value >= 0 && value <= 4000000) {
+                        customBaudrate.setVisibility(View.VISIBLE);
+                        customBaudrate.setText(getString(R.string.title_custom_buardate, userInput));
+                        serialHelper.close();
+                        serialHelper.setBaudRate(userInput);
+                        btOpen.setEnabled(true);
+                    }
+                } catch (NumberFormatException e) {
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -278,12 +350,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_clean:
-                logListAdapter.clean(); //清空
-                break;
-            default:
-                break;
+        if (item.getItemId() == R.id.menu_clean) {
+            logListAdapter.clean();
         }
         return super.onOptionsItemSelected(item);
     }
