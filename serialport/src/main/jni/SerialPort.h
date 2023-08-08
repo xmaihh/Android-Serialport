@@ -11,7 +11,7 @@ extern "C" {
  * Class:     android_serialport_api_SerialPort
  * Method:    open
  * Signature: (Ljava/lang/String;II)Ljava/io/FileDescriptor;
- */                       // 命名格式: Java_包名_类目录_类名_接口
+ */
 JNIEXPORT jobject JNICALL Java_android_1serialport_1api_SerialPort_open
         (JNIEnv *, jclass, jstring, jint, jint, jint, jint, jint, jint);
 

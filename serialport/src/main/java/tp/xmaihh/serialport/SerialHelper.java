@@ -275,7 +275,7 @@ public abstract class SerialHelper {
 
     protected abstract void onDataReceived(ComBean paramComBean);
 
-    private AbsStickPackageHelper mStickPackageHelper = new BaseStickPackageHelper();  // 默认不处理粘包，直接读取返回
+    private AbsStickPackageHelper mStickPackageHelper = new BaseStickPackageHelper();
 
     public AbsStickPackageHelper getStickPackageHelper() {
         return mStickPackageHelper;

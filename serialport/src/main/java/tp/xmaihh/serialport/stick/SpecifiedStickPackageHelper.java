@@ -7,14 +7,17 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 特定字符的粘包处理,首尾各一个Byte[],不可以同时为空，如果其中一个为空，那么以不为空的作为分割标记
- * 例：协议制定为  ^+数据+$，首就是^，尾是$
+ * The sticky packet processing of specific characters,
+ * one Byte[] at the beginning and the end, cannot be empty at the same time,
+ * if one of them is empty, then the non-empty is used as the split marker
+ * Example: The protocol is formulated as ^+data+$, starting with ^ and ending with $
  */
 public class SpecifiedStickPackageHelper implements AbsStickPackageHelper {
-    private byte[] head;
-    private byte[] tail;
-    private List<Byte> bytes;
-    private int headLen, tailLen;
+    private final byte[] head;
+    private final byte[] tail;
+    private final List<Byte> bytes;
+    private final int headLen;
+    private final int tailLen;
 
     public SpecifiedStickPackageHelper(byte[] head, byte[] tail) {
         this.head = head;
@@ -34,7 +37,7 @@ public class SpecifiedStickPackageHelper implements AbsStickPackageHelper {
         if (src.length < target.length) {
             return false;
         }
-        for (int i = 0; i < target.length; i++) {//逆序比较
+        for (int i = 0; i < target.length; i++) {
             if (target[target.length - i - 1] != src[src.length - i - 1]) {
                 return false;
             }
@@ -64,11 +67,11 @@ public class SpecifiedStickPackageHelper implements AbsStickPackageHelper {
                 temp = (byte) len;
                 bytes.add(temp);
                 Byte[] byteArray = bytes.toArray(new Byte[]{});
-                if (headLen == 0 || tailLen == 0) {//只有头或尾标记
+                if (headLen == 0 || tailLen == 0) {//Only head or tail markers
                     if (endWith(byteArray, head) || endWith(byteArray, tail)) {
                         if (startIndex == -1) {
                             startIndex = bytes.size() - headLen;
-                        } else {//找到了
+                        } else {
                             result = getRangeBytes(bytes, startIndex, bytes.size());
                             break;
                         }

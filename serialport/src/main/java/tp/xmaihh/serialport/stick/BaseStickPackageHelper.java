@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 最简单的做法，不处理粘包，直接读取返回，InputStream.available()读多少返回多少
+ * The simplest thing to do is not to deal with sticky packets,
+ * read directly and return as much as InputStream.available() reads
  */
 public class BaseStickPackageHelper implements AbsStickPackageHelper {
     public BaseStickPackageHelper() {

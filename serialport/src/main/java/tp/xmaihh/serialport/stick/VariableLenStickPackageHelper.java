@@ -8,25 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 可变长度的粘包处理，使用于协议中有长度字段
- * 例：协议为:       type+dataLen+data+md5
- * type:命名类型，两个字节
- * dataLen:data字段的长度,两个字节
- * data:数据字段,长度不定，长度为dataLen
- * md5:md5字段，8个字节
- * 使用：1.byteOrder:首先确定大小端，ByteOrder.BIG_ENDIAN or ByteOrder.LITTLE_ENDIAN;
- * 2.lenSize:len字段的长度，这个例子为2
- * 3.lenIndex：len字段的位置，这个例子为2，因为len字段前面为type，它长度为2
- * 4.offset：整个包的长度-len，这个例子是，type+dataLen+md5 三个字段的长度，也就是2+2+8=12
+ * Variable-length sticky packet processing, used in the protocol with a length field
+ * Example: The protocol is: type+dataLen+data+md5
+ * type: Named type, two bytes
+ * dataLen: The length of the data field, two bytes
+ * data: Data field, variable length, length dataLen
+ * md5: md5 field, 8 bytes
+ * Use: 1.byteOrder: first determine the big and small ends, ByteOrder.BIG_ENDIAN or ByteOrder.LITTLE_ENDIAN;
+ * 2.lenSize: The length of the len field, 2 in this example
+ * 3.lenIndex: The position of the len field, 2 in this example, because the len field is preceded by type, and its length is 2
+ * 4.offset: the length of the entire package -len, this example is the length of the three fields of type+dataLen+md5, that is, 2+2+8=12
  */
 public class VariableLenStickPackageHelper implements AbsStickPackageHelper {
-    private int offset = 0;//整体长度的偏移，比如有一个字段不算在len字段内
-    private int lenIndex = 0;//长度字段的位置
-    private int lenSize = 2;//len字段的长度，一般是short(2),int(4)
-    private ByteOrder byteOrder = ByteOrder.BIG_ENDIAN;//大端还是小端
-    private List<Byte> mBytes;
-    private int lenStartIndex;//len字段的开始位置
-    private int lenEndIndex;//len字段的结束位置，[lenStartIndex,lenEndIndex]
+    private int offset = 0;
+    private int lenIndex = 0;
+    private int lenSize = 2;
+    private ByteOrder byteOrder = ByteOrder.BIG_ENDIAN;
+    private final List<Byte> mBytes;
+    private final int lenStartIndex;
+    private final int lenEndIndex;
 
     public VariableLenStickPackageHelper(ByteOrder byteOrder, int lenSize, int lenIndex, int offset) {
         this.byteOrder = byteOrder;
@@ -68,18 +68,18 @@ public class VariableLenStickPackageHelper implements AbsStickPackageHelper {
             while ((len = is.read()) != -1) {
                 temp = (byte) len;
                 if (count >= lenStartIndex && count <= lenEndIndex) {
-                    lenField[count - lenStartIndex] = temp;//保存len字段
-                    if (count == lenEndIndex) {//len字段保存结束，需要解析出来具体的长度了
+                    lenField[count - lenStartIndex] = temp;
+                    if (count == lenEndIndex) {
                         msgLen = getLen(lenField, byteOrder);
                     }
                 }
                 count++;
                 mBytes.add(temp);
-                if (msgLen != -1) {//已结解析出来长度
+                if (msgLen != -1) {
                     if (count == msgLen + offset) {
                         break;
-                    } else if (count > msgLen + offset) {//error
-                        len = -1;//标记为error
+                    } else if (count > msgLen + offset) {
+                        len = -1;
                         break;
                     }
                 }

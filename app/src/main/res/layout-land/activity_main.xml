@@ -1,208 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/y8"
+        android:layout_margin="@dimen/item_padding"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.75" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y8"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toRightOf="@id/recyclerView"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <RadioButton
-            android:id="@+id/radioButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="发送Text" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="发送Hex" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/tv_serial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="串口号:"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/sp_serial"
-        app:layout_constraintLeft_toRightOf="@+id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintTop_toTopOf="@+id/sp_serial" />
-
-    <Spinner
-        android:id="@+id/sp_serial"
-        android:layout_width="@dimen/y100"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/y8"
-        app:layout_constraintStart_toEndOf="@+id/tv_serial"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-
-    <TextView
-        android:id="@+id/tv_baudrate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="波特率:"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/sp_baudrate"
-        app:layout_constraintLeft_toRightOf="@id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@id/sp_serial"
-        app:layout_constraintTop_toTopOf="@id/sp_baudrate" />
-
-    <Spinner
-        android:id="@+id/sp_baudrate"
-        android:layout_width="@dimen/y100"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y8"
-        app:layout_constraintStart_toEndOf="@id/tv_baudrate"
-        app:layout_constraintTop_toBottomOf="@+id/sp_serial" />
-
-
-    <TextView
-        android:id="@+id/tv_databits"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="数据位:"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@id/sp_databits"
-        app:layout_constraintLeft_toRightOf="@id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/sp_baudrate"
-        app:layout_constraintTop_toTopOf="@id/sp_databits" />
-
-    <Spinner
-        android:id="@+id/sp_databits"
-        android:layout_width="@dimen/y100"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y8"
-        app:layout_constraintLeft_toRightOf="@+id/tv_databits"
-        app:layout_constraintTop_toBottomOf="@+id/sp_baudrate" />
-
-
-    <TextView
-        android:id="@+id/tv_parity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="校验位:"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@id/sp_parity"
-        app:layout_constraintLeft_toRightOf="@id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/sp_databits"
-        app:layout_constraintTop_toTopOf="@id/sp_parity" />
-
-    <Spinner
-        android:id="@+id/sp_parity"
-        android:layout_width="@dimen/y100"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y8"
-        app:layout_constraintLeft_toRightOf="@+id/tv_parity"
-        app:layout_constraintTop_toBottomOf="@+id/sp_databits" />
-
-    <TextView
-        android:id="@+id/tv_stopbits"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="停止位:"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@id/sp_stopbits"
-        app:layout_constraintLeft_toRightOf="@id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/sp_parity"
-        app:layout_constraintTop_toTopOf="@id/sp_stopbits" />
-
-    <Spinner
-        android:id="@+id/sp_stopbits"
-        android:layout_width="@dimen/y100"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y8"
-        app:layout_constraintLeft_toRightOf="@+id/tv_stopbits"
-        app:layout_constraintTop_toBottomOf="@+id/sp_parity" />
-
-
-    <TextView
-        android:id="@+id/tv_flowcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="流    控:"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/sp_flowcon"
-        app:layout_constraintLeft_toRightOf="@id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/sp_stopbits"
-        app:layout_constraintTop_toTopOf="@+id/sp_flowcon" />
-
-    <Spinner
-        android:id="@+id/sp_flowcon"
-        android:layout_width="@dimen/y100"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/y8"
-        android:layout_marginTop="@dimen/y8"
-        app:layout_constraintLeft_toRightOf="@+id/tv_flowcon"
-        app:layout_constraintTop_toBottomOf="@+id/sp_stopbits" />
-
-    <EditText
-        android:id="@+id/ed_input"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/y8"
-        android:maxLines="1"
-        android:text="123456"
-        android:textSize="@dimen/sp_14"
-        app:layout_constraintBottom_toTopOf="@+id/btn_open"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/recyclerView"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_flowcon" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btn_open"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y8"
-        android:layout_marginRight="@dimen/y8"
-        android:text="开启串口"
-        app:layout_constraintBottom_toTopOf="@+id/btn_send"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y8"
-        android:layout_marginRight="@dimen/y8"
-        android:text="发送"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/item_padding"
+                android:orientation="vertical">
 
 
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/send_setting_send_text" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/send_setting_send_hex" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_custom_baudrate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/title_custom_buardate"
+                android:textColor="@color/colorAccent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_serial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_serial_port"
+                    android:textColor="#000" />
+
+                <Spinner
+                    android:id="@+id/sp_serial"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_baudrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/item_padding"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_baudrate"
+                    android:textColor="#000" />
+
+                <Spinner
+                    android:id="@+id/sp_baudrate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_databits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/item_padding"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_data_bits"
+                    android:textColor="#000" />
+
+                <Spinner
+                    android:id="@+id/sp_databits"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_parity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/item_padding"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_parity"
+                    android:textColor="#000" />
+
+                <Spinner
+                    android:id="@+id/sp_parity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_stopbits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/item_padding"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_stop_bits"
+                    android:textColor="#000" />
+
+                <Spinner
+                    android:id="@+id/sp_stopbits"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_flowcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/item_padding"
+                    android:gravity="center_vertical"
+                    android:text="@string/title_flow_type"
+                    android:textColor="#000" />
+
+                <Spinner
+                    android:id="@+id/sp_flowcon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/ed_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="123456" />
+
+            <Button
+                android:id="@+id/btn_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_open" />
+
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_send" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

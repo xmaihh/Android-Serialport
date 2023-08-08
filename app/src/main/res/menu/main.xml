@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_clean"
+        android:icon="@drawable/ic_cleaning"
         android:textAllCaps="false"
-        android:title="清空"
+        android:title="@string/title_clear"
         app:showAsAction="ifRoom" />
 </menu>

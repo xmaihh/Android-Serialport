@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Serial Port API sample</string>
-    <string name="about_msg">
+    <string name="app_name" translatable="false">Serial Port API sample</string>
+    <string name="about_msg" translatable="false">
 Serial Port API sample v1.1\n
 \n
 This program is the sample application provided with project android-serialport-api.\n
@@ -23,10 +23,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.\n
 	</string>
-    <string name="error_configuration">Please configure your serial port first.</string>
-    <string name="error_security">You do not have read/write permission to the serial
+    <string name="error_configuration" translatable="false">Please configure your serial port first.</string>
+    <string name="error_security" translatable="false">You do not have read/write permission to the serial
 		port.</string>
-    <string name="error_unknown">The serial port can not be opened for an unknown
+    <string name="error_unknown" translatable="false">The serial port can not be opened for an unknown
 		reason.</string>
-
+    <string name="send_setting_send_text">Send Text</string>
+    <string name="send_setting_send_hex">Send Hex</string>
+    <string name="title_custom_buardate">*custom baudrate:%s</string>
+    <string name="title_serial_port">Port:</string>
+    <string name="title_baudrate">Baudrate:</string>
+    <string name="title_data_bits">Data Bits:</string>
+    <string name="title_parity">Parity:</string>
+    <string name="title_stop_bits">Stop Bits:</string>
+    <string name="title_flow_type">Flow Type:</string>
+    <string name="title_open">Open</string>
+    <string name="title_send">Send</string>
+    <string name="title_clear">Clear</string>
+    <string name="tips_serial_port_not_open">Serial Port not open</string>
+    <string name="tips_please_enter_a_data">Please enter a data</string>
+    <string name="tips_formatting_hex_error">The formatting is bad,not hexadecimal</string>
+    <string name="tips_please_enter_custom_baudrate">Enter custom baudrate</string>
+    <string name="tips_cannot_be_opened">Cannot be opened.msg：%s</string>
 </resources>

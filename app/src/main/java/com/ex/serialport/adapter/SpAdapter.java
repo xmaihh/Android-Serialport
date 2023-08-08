@@ -9,11 +9,6 @@ import android.widget.TextView;
 
 import com.ex.serialport.R;
 
-/**
- * @author: liuwan
- * @date: 2018-05-28
- * @action:
- */
 public class SpAdapter extends BaseAdapter {
 
     String[] datas;
