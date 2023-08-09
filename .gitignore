@@ -212,6 +212,8 @@ obj/
 .idea/gradle.xml
 .idea/jarRepositories.xml
 .idea/navEditor.xml
+.idea/
+publish-mavencentral.gradle
 
 # Legacy Eclipse project files
 .cproject
