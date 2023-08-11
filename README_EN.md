@@ -103,10 +103,11 @@ Set sticky package processing
 serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
 ```
 
-# Demo APK
-<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.jpg" width="270" height="480" alt="演示效果"/>
+# Screenshots
 
-[![apk Download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
+![Screenshot showing screen](art/screen.png "Screenshot showing screen")
+
+<a href="https://play.google.com/store/apps/details?id=com.ex.serialport"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="70"></a>
 
 PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
 
@@ -137,8 +138,7 @@ PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmai
 # FAQ
 
 ![Watch out](https://img.shields.io/badge/Watch%20out%20-FF4081)
-
-* This library does not provide ROOT permissions, please open the serial port '666' permissions yourself.
+This library does not provide ROOT permissions, please open the serial port '666' permissions yourself.
 ```
 adb shell  chmod 666 /dev/ttyS1
 ```

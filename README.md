@@ -98,10 +98,12 @@ public interface AbsStickPackageHelper {
 serialHelper.setStickPackageHelper(AbsStickPackageHelper mStickPackageHelper);
 ```
 * 其实数据粘包可参考socket通讯的粘包处理,例如此处粘包处理方法出自于[XAndroidSocket](https://github.com/Blankeer/XAndroidSocket)
-# 完整Demo地址
-<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/screen.jpg" width="270" height="480" alt="演示效果"/>
 
-[![apk下载](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
+# 屏幕截图
+
+![Screenshot showing screen](art/screen.png "Screenshot showing screen")
+
+<a href="https://play.google.com/store/apps/details?id=com.ex.serialport"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="70"></a>
 
 PC端调试工具 [友善串口调试工具](https://github.com/xmaihh/Android-Serialport/raw/master/serial_port_utility_latest.exe)
 
