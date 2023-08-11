@@ -1,14 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 32
+    compileSdk 34
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 32
-        versionCode 11
+        minSdk 14
+        targetSdk 34
+        versionCode 13
         versionName "2.1.2"
-
     }
 
     buildTypes {
@@ -23,6 +22,5 @@ android {
             path "CMakeLists.txt"
         }
     }
-
 }
 

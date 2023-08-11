@@ -5,8 +5,8 @@ Porting Google's official serial port library [android-serialport-api](https://c
 <!--<img src="https://github.com/xmaihh/Android-Serialport/raw/master/art/compile_env.png" width="80%" height="80%" align="middle" alt="编译环境"/>-->
 <img src ="https://github.com/xmaihh/Android-Serialport/blob/master/art/logo.svg" height = 150 alt ="Android-Serialport"/>
 
-[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.1](https://img.shields.io/badge/jcenter-2.1-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)![Maven Central](https://img.shields.io/maven-central/v/io.github.xmaihh/serialport)[![Demo apk download](https://img.shields.io/crates/dv/rustc-serialize.svg)](https://fir.im/lcuy)
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/:user/:repo/:branch.svg)](https://github.com/xmaihh/Android-Serialport/tree/master)[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)
+[![GitHub forks](https://img.shields.io/github/forks/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/network)[![GitHub issues](https://img.shields.io/github/issues/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/issues)[![GitHub stars](https://img.shields.io/github/stars/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport/stargazers)[![Source persent](https://img.shields.io/badge/Java-73.2%25-brightgreen.svg)](https://github.com/xmaihh/Android-Serialport/search?l=C)[![Jcenter2.1](https://img.shields.io/badge/jcenter-2.1-brightgreen.svg)](https://bintray.com/xmaihh/maven/serialport)![Maven Central](https://img.shields.io/maven-central/v/io.github.xmaihh/serialport)
+[![GitHub license](https://img.shields.io/github/license/xmaihh/Android-Serialport.svg)](https://github.com/xmaihh/Android-Serialport)
 
 # Document
 
@@ -114,7 +114,7 @@ PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmai
 ## [2.1.2](https://github.com/xmaihh/Android-Serialport/tree/v2.1.2)
 ### Added
 - Add support for setting parity: 0 parity(SPACE), 1 parity(MARK)
-- Added support for setting custom baud rate 见[issues#26](https://github.com/xmaihh/Android-Serialport/issues/26)
+- Added support for setting custom baud rate [issues#26](https://github.com/xmaihh/Android-Serialport/issues/26)
 
 ## [2.1.1](https://github.com/xmaihh/Android-Serialport/tree/v2.1.1)
 ### Fixed
@@ -135,6 +135,9 @@ PC-side debugging tools  [Serial debugging tool for Win](https://github.com/xmai
 
 
 # FAQ
+
+![Watch out](https://img.shields.io/badge/Watch%20out%20-FF4081)
+
 * This library does not provide ROOT permissions, please open the serial port '666' permissions yourself.
 ```
 adb shell  chmod 666 /dev/ttyS1

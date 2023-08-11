@@ -1,0 +1,49 @@
+ext {
+    git = rootProject.ext.Grgit.open(currentDir: projectDir)
+    gitBranchName = git.branch.current().name
+    gitVersionName = git.describe(tags: true)
+    gitVersionCode = git.tag.list().size()
+    gitVersionCodeTime = git.head().dateTime.toEpochSecond().intValue()
+
+    task printVersion() {
+        println("Version Name: $gitVersionName")
+        println("Version Code: $gitVersionCode")
+        println("Version Code Time: $gitVersionCodeTime")
+    }
+}
+
+def buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd_HHmm')
+    return formattedDate
+}
+
+ext.gitBranchName = {
+    def branch = ""
+    def proc = "git rev-parse --abbrev-ref HEAD".execute()
+    proc.in.eachLine { line -> branch = line }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+    return branch
+}
+
+ext.getGitHeadRefsSuffix = {
+    try {
+        def headFile = new File(rootDir.getParent(), '.git/HEAD')
+        if (headFile.exists()) {
+            String[] strings = headFile.getText('UTF-8').split(" ")
+            if (strings.size() > 1) {
+                def refHeadFile = new File(rootDir.getParent(), '.git/' + strings[1])
+                String refFilePath = refHeadFile.getPath()
+                def refFile = new File(refFilePath.replace("\n", ""))
+                return refFile.getText('UTF-8').substring(0, 7)
+            }
+        } else {
+            return "headFile"
+        }
+    } catch (Exception e) {
+        logger.log(LogLevel.ERROR, e.getMessage())
+        return "error"
+    }
+    return "default_version"
+}
